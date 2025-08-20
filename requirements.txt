@@ -1,0 +1,3 @@
+pandas>=2.0
+# optional: install for Parquet output
+pyarrow>=14

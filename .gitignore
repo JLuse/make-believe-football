@@ -1,0 +1,120 @@
+# ---- OS / Editor ----
+.DS_Store
+Thumbs.db
+Icon?
+.Spotlight-V100
+.Trashes
+.AppleDouble
+.LSOverride
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.python-version
+__pypackages__/
+
+# ---- Packaging / Build ----
+build/
+dist/
+downloads/
+wheels/
+share/python-wheels/
+*.egg-info/
+.eggs/
+eggs/
+sdist/
+develop-eggs/
+lib/
+lib64/
+parts/
+var/
+*.egg
+.installed.cfg
+
+# ---- Environment / Dependencies ----
+.env
+.env.*
+.venv
+venv/
+ENV/
+env/
+.conda/
+conda/
+
+# ---- Logs ----
+logs/
+*.log
+
+# ---- Testing / Coverage ----
+.tox/
+.nox/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+.cache
+*.cover
+*.py,cover
+nosetests.xml
+.hypothesis/
+.pytest_cache/
+
+# ---- Type Checking / Linting ----
+.mypy_cache/
+.pyre/
+.pytype/
+.ruff_cache/
+dmypy.json
+.dmypy.json
+
+# ---- Jupyter ----
+.ipynb_checkpoints/
+.jupyter/lab/workspaces/
+
+# ---- Data Science / ML Artifacts ----
+# Large or generated data; keep placeholders like README.md or .gitkeep
+data/**
+!data/.gitkeep
+!data/README.md
+
+# Trained models and checkpoints
+models/**
+!models/.gitkeep
+!models/README.md
+checkpoints/
+tensorboard/
+tb_logs/
+runs/
+artifacts/
+outputs/
+mlruns/
+wandb/
+
+# Common model file formats
+*.h5
+*.hdf5
+*.ckpt
+*.ckpt.*
+*.pt
+*.pth
+*.onnx
+*.joblib
+*.pkl
+
+# ---- Reports ----
+# Keep reports but ignore generated figures by default
+reports/figures/
+!reports/.gitkeep
+!reports/README.md
+
+# ---- DVC / Data Versioning ----
+.dvc/tmp/
+
+
