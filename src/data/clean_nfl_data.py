@@ -487,11 +487,31 @@ def expand_complete_weeks(df: pd.DataFrame) -> pd.DataFrame:
     # Ensure a week column exists in df for the merge; if absent, create empty
     if "week" not in df.columns:
         df = df.assign(week=pd.Series(dtype="Int64"))
-    sort_keys_stats = ["season", "player"] + (["week"] if "week" in df.columns else [])
+
+    # Coalesce multiple rows per player-week across sources: numeric = max, text = first non-null
+    df_tmp = df.copy()
+    for col in df_tmp.columns:
+        if col not in ["season", "week", "player"] and df_tmp[col].dtype == object:
+            df_tmp[col] = df_tmp[col].replace("", pd.NA)
+
+    numeric_cols = [c for c in df_tmp.select_dtypes(include=["number"]).columns 
+                    if c not in ["season", "week"]]
+    other_cols = [c for c in df_tmp.columns if c not in ["season", "week", "player"] + numeric_cols]
+
+    def first_non_null(series: pd.Series):
+        non_null = series.dropna()
+        return non_null.iloc[0] if len(non_null) else pd.NA
+
+    agg_dict = {col: "max" for col in numeric_cols}
+    for col in other_cols:
+        agg_dict[col] = first_non_null
+
     df_stats = (
-        df.sort_values(sort_keys_stats, na_position="last")
-          .drop_duplicates(subset=["season", "week", "player"], keep="last")
+        df_tmp.groupby(["season", "week", "player"], as_index=False)
+              .agg(agg_dict)
     )
+
+    # Do not require team/position to match when merging stats
     stat_cols = [c for c in df_stats.columns if c not in ["season", "week", "player", "team", "position"]]
     filled = (
         season_week.merge(df_stats[["season", "week", "player"] + stat_cols],
