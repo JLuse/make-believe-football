@@ -1,4 +1,4 @@
-# Make Believe Football – Data Cleaner
+# Make Believe Football
 
 Python utilities to clean and consolidate player stats from the NFL-Data repository.
 
